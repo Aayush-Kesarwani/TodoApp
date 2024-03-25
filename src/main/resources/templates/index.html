@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.2/css/bootstrap.min.css}" />
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.2/css/bootstrap.min.css}"/>
 </head>
 <body>
 <div class="container">
     <h1>Todo Application</h1>
-    <hr />
+    <hr/>
 
     <table class="table table-bordered table-striped">
         <thead>
@@ -17,6 +17,7 @@
             <th>Actions</th>
             <th>Id</th>
             <th>Description</th>
+            <th>Category</th>
             <th>Is Complete</th>
             <th>Created At</th>
             <th>Updated At</th>
@@ -34,9 +35,10 @@
             </td>
             <td th:text="${item.id}"></td>
             <td th:text="${item.description}"></td>
+            <td th:text="${item.category}"></td>
             <td>
-                <span th:if="${item.isComplete} == true" th:text="Yes" />
-                <span th:unless="${item.isComplete} == true" th:text="No" />
+                <span th:if="${item.isComplete} == true" th:text="Yes"/>
+                <span th:unless="${item.isComplete} == true" th:text="No"/>
             </td>
             <td th:text="${item.createdAt}"></td>
             <td th:text="${item.updatedAt}"></td>
@@ -48,15 +50,22 @@
         <i class="bi bi-plus-square-fill"></i> Create a Todo</a>
     </p>
 </div>
-<div class="container mt-5" id="weather">
-    <h2>Current city: Bangalore</h2>
+
+<div class="container mt-5">
+    <h3>Weather</h3>
+    <hr/>
+    <input type="text" id="city" class="form-control" placeholder="Enter City Name">
+    <button class="btn btn-outline-success mt-3" onclick="getWeather()">Get Weather</button>
 </div>
+<div id="weather" class="container mt-5"></div>
 <script>
-    const apiKey = "554877f990ed4d1996773622241903";
-    const city = "Mumbai";
-    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+
 
     async function getWeather() {
+    const apiKey = "554877f990ed4d1996773622241903";
+    const city = document.getElementById("city").value;
+    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+
         try {
             const response = await fetch(apiUrl);
             if (!response.ok) {
@@ -73,7 +82,7 @@
             console.error("Error fetching weather data: ", error);
         }
     }
-    window.onload = getWeather;
+<!--    window.onload = getWeather;-->
 </script>
 <script th:src="@{/webjars/bootstrap/5.2.2/js/bootstrap.min.js}"></script>
 </body>

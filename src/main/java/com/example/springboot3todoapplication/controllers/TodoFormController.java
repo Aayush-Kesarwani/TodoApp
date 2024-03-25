@@ -33,7 +33,7 @@ public class TodoFormController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteTodoItem(@PathVariable("id") Long id, Model model) {
+    public String deleteTodoItem(@PathVariable("id") String id, Model model) {
         TodoItem todoItem = todoItemService
                 .getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Todo Item id: " + id + " not found."));
@@ -42,7 +42,7 @@ public class TodoFormController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+    public String showUpdateForm(@PathVariable("id") String id, Model model) {
         TodoItem todoItem = todoItemService
                 .getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Todo Item id: " + id + " not found."));
@@ -51,12 +51,13 @@ public class TodoFormController {
     }
 
     @PostMapping("/todo/{id}")
-    public String updateTodoItem(@PathVariable("id") Long id, @Valid TodoItem todoItem, BindingResult result, Model model) {
+    public String updateTodoItem(@PathVariable("id") String id, @Valid TodoItem todoItem, BindingResult result, Model model) {
         TodoItem item = todoItemService
                 .getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Todo Item id: " + id + " not found."));
         item.setIsComplete(todoItem.getIsComplete());
         item.setDescription(todoItem.getDescription());
+        item.setCategory(todoItem.getCategory());
 
         todoItemService.save(item);
 

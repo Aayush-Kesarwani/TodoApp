@@ -18,7 +18,7 @@ public class TodoItemService {
         return todoItemRepository.findAll();
     }
 
-    public Optional<TodoItem> getById(Long id) {
+    public Optional<TodoItem> getById(String id) {
         return todoItemRepository.findById(id);
     }
 
